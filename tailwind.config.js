@@ -10,12 +10,6 @@ module.exports = {
           neutral: "#3d4451",
           "base-100": "#ffffff",
         },
-        extend: {
-          backgroundImage: {
-            'banener-background': "url('/src/assets/images/chair.png')",
-
-          }
-        },
       },
 
       "dark",
