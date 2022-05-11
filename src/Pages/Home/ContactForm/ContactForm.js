@@ -11,16 +11,18 @@ const ContactForm = () => {
                     <div className="form-control mb-6">
                         <div className="form-control mb-3">
 
-                            <input type="text" placeholder="email" className="input input-bordered" />
+                            <input type="text" placeholder="email" className="input input-bordered w-96" />
                         </div>
                         <div className="form-control mb-3">
 
-                            <input type="text" placeholder="Subject" className="input input-bordered" />
+                            <input type="text" placeholder="Subject" className="input input-bordered w-96" />
                         </div>
-                        <div className="mb-5 pt-0">
-                            <input type="text" placeholder="Your Massage" className="px-3 py-4 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-base border-0 shadow outline-none focus:outline-none focus:ring w-full" />
+                        <div class=" w-96 md:w-full  mb-2 mt-2">
+                            <textarea class="bg-gray-100 rounded border-lg border-gray-400 leading-normal  w-96 h-20 py-2 px-3  placeholder-gray-500 focus:outline-none focus:bg-white" name="body" placeholder='Your massage' required></textarea>
                         </div>
-                        <button className="btn btn-primary uppercase text-white text-bold bg-gradient-to-r from-secondary to-priamry">Submit</button>
+                        <div className='grid justify-items-center'>
+                            <button className="btn btn-primary uppercase text-white text-bold bg-gradient-to-r from-secondary to-priamry w-20">Submit</button>
+                        </div>
                     </div>
                 </div>
             </div>
