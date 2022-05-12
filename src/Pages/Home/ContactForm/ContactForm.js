@@ -17,8 +17,8 @@ const ContactForm = () => {
 
                             <input type="text" placeholder="Subject" className="input input-bordered w-96" />
                         </div>
-                        <div class=" w-96 md:w-full  mb-2 mt-2">
-                            <textarea class="bg-gray-100 rounded border-lg border-gray-400 leading-normal  w-96 h-20 py-2 px-3  placeholder-gray-500 focus:outline-none focus:bg-white" name="body" placeholder='Your massage' required></textarea>
+                        <div className=" w-96 md:w-full  mb-2 mt-2">
+                            <textarea className="bg-gray-100 rounded border-lg border-gray-400 leading-normal  w-96 h-20 py-2 px-3  placeholder-gray-500 focus:outline-none focus:bg-white" name="body" placeholder='Your massage' required></textarea>
                         </div>
                         <div className='grid justify-items-center'>
                             <button className="btn btn-primary uppercase text-white text-bold bg-gradient-to-r from-secondary to-priamry w-20">Submit</button>
