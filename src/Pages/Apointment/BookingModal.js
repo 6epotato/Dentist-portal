@@ -6,7 +6,7 @@ import auth from '../../firebase.init';
 
 
 //came from Available Apointment
-const BookingModal = ({ treatement, date, setTreatment }) => {
+const BookingModal = ({ treatement, date, setTreatment, refetch }) => {
 
     const [user, loading] = useAuthState(auth);
 
@@ -45,6 +45,7 @@ const BookingModal = ({ treatement, date, setTreatment }) => {
                 else {
                     toast.error(`Apointment is set on ${data.booking?.date} at ${data.booking?.slot}`)
                 }
+                refetch();
                 // close model
                 setTreatment(null)
             })
