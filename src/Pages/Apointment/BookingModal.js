@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 
 
@@ -13,9 +14,42 @@ const BookingModal = ({ treatement, date, setTreatment }) => {
     // handle submit button for from
     const handleSubmit = event => {
         event.preventDefault();
+        const formatedDate = format(date, 'PP');
         const slot = event.target.slot.value;
-        console.log(_id, name, slot);
-        setTreatment(null)
+        const booking = {
+            treatmentID: _id,
+            treatment: name,
+            date: formatedDate,
+            slot,
+            patient: user.email,
+            patintName: user.displayName,
+            phone: event.target.phone.value
+
+        }
+        // lower case pp will cause a data error which shows time formate
+
+        // send data to the backend 
+        fetch('http://localhost:5000/booking', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(booking)
+        })
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data)
+                if (data.success) {
+                    toast(`Apointment is set on ${formatedDate} at ${slot}`)
+                }
+                else {
+                    toast.error(`Apointment is set on ${data.booking?.date} at ${data.booking?.slot}`)
+                }
+                // close model
+                setTreatment(null)
+            })
+
+
     }
     return (
         <div>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import React, { useRef } from 'react';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init'
@@ -18,8 +18,16 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
+
+    // reset password
+
+    const [sendPasswordResetEmail, sending, ResetError] = useSendPasswordResetEmail(
+        auth
+    );
+
     let navigate = useNavigate();
     let location = useLocation();
+    const emailRef = useRef(' ')
 
     let from = location.state?.from?.pathname || "/";
 
@@ -32,14 +40,25 @@ const Login = () => {
     if (loading || gLoading) {
         return <Loading></Loading>
     }
-    if (error || gError) {
-        signInError = <p className='text-red-500'>{error?.message || gError?.message}</p>
+    if (error || gError || ResetError) {
+        signInError = <p className='text-red-500'>{error?.message || gError?.message || ResetError?.message}</p>
     }
 
+    // from on submit button fuction
     const onSubmit = data => {
         console.log(data)
         signInWithEmailAndPassword(data.email, data.password);
     };
+
+    // Password reset button function
+
+    const handleResetPasssword = () => {
+        const email = emailRef.current.value;
+        console.log(email)
+        // await sendPasswordResetEmail(data.email);
+
+        // alert('Sent email');
+    }
 
 
     return (
@@ -55,7 +74,7 @@ const Login = () => {
                                 <span className="label-text">Email</span>
 
                             </label>
-                            <input  {...register("email", {
+                            <input ref={emailRef}  {...register("email", {
                                 required: {
                                     value: true,
                                     message: "Email is Required"
@@ -98,7 +117,10 @@ const Login = () => {
                         {signInError}
                         <input className='btn  w-full max-w-xs' type="submit" value={'LogIN'} />
                     </form>
+                    {/* nevigate to register page */}
                     <p><small>New to Doctors Portal? <Link to="/register" className='text-primary'>Create New Account</Link></small></p>
+                    {/* addig reset password */}
+                    <p><small>Forgot the password?<button onClick={handleResetPasssword} class="btn btn-sm btn-link">Reset Password</button></small></p>
                     <div className="divider">OR</div>
                     <button onClick={() => signInWithGoogle()} className="btn btn-outline">Continue with Google</button>
                 </div>
