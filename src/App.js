@@ -16,6 +16,7 @@ import MyApointment from './Pages/Dashboard/MyApointment';
 import MyReview from './Pages/Dashboard/MyReview';
 import MyHistory from './Pages/Dashboard/MyHistory';
 import Users from './Pages/Dashboard/Users';
+import RequiredAdmin from './Pages/Login/RequireAdmin';
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
           <Route index element={<MyApointment></MyApointment>}></Route>
           <Route path='review' element={<MyReview></MyReview>}></Route>
           <Route path='history' element={<MyHistory></MyHistory>}></Route>
-          <Route path='users' element={<Users></Users>}></Route>
+          <Route path='users' element={<RequiredAdmin><Users></Users></RequiredAdmin>}></Route>
         </Route>
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
