@@ -29,7 +29,7 @@ const BookingModal = ({ treatement, date, setTreatment, refetch }) => {
         // lower case pp will cause a data error which shows time formate
 
         // send data to the backend 
-        fetch('http://localhost:5000/booking', {
+        fetch('https://gentle-everglades-35240.herokuapp.com/booking', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
