@@ -1,3 +1,4 @@
+import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
@@ -7,9 +8,23 @@ const MyApointment = () => {
     const [appointment, setAppointment] = useState([]);
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:5000/booking?patient=${user.email}`)
-                .then(res => res.json())
-                .then(data => setAppointment(data))
+            fetch(`http://localhost:5000/booking?patient=${user.email}`, {
+                method: 'GET',
+                headers: {
+                    'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
+                .then(res => {
+                    // console.log('res', res)
+                    if (res.status === 401 || res.status === 403) {
+                        signOut(auth);
+                        localStorage.removeItem('accessToken')
+                    }
+                    return res.json()
+                })
+                .then(data => {
+                    setAppointment(data)
+                })
         }
     }, [user])
 
@@ -29,7 +44,7 @@ const MyApointment = () => {
                     </thead>
                     <tbody>
                         {/* <!-- row 1 --> */}
-                        {appointment.map(a => <tr>
+                        {appointment?.map(a => <tr>
 
                             <td>{a.patintName}</td>
                             <td>{a.treatment}</td>
