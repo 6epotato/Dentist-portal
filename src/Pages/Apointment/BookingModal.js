@@ -10,7 +10,7 @@ const BookingModal = ({ treatement, date, setTreatment, refetch }) => {
 
     const [user, loading] = useAuthState(auth);
 
-    const { _id, name, slots } = treatement;
+    const { _id, name, slots, price } = treatement;
     // handle submit button for from
     const handleSubmit = event => {
         event.preventDefault();
@@ -20,6 +20,7 @@ const BookingModal = ({ treatement, date, setTreatment, refetch }) => {
             treatmentID: _id,
             treatment: name,
             date: formatedDate,
+            price,
             slot,
             patient: user.email,
             patintName: user.displayName,
